@@ -1,6 +1,5 @@
 // storage-adapter-import-placeholder
 import { postgresAdapter } from '@payloadcms/db-postgres'
-import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload'
@@ -8,19 +7,23 @@ import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 
 import { Users } from './collections/Users'
-import { Media } from './collections/Media'
-
+import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
+import {multiTenantPlugin} from '@payloadcms/plugin-multi-tenant'
+import ContactUs from './collections/Contact_Us'
+import Tenants from './collections/Tenant'
+import FormSubmissions from './collections/FormSubmission'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
   admin: {
     user: Users.slug,
-    importMap: {
+     importMap: {
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media],
+
+  collections: [Users,Tenants,FormSubmissions, ContactUs],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
@@ -33,7 +36,17 @@ export default buildConfig({
   }),
   sharp,
   plugins: [
-    payloadCloudPlugin(),
-    // storage-adapter-placeholder
+    formBuilderPlugin({}),
+   multiTenantPlugin({
+     
+      tenantField: { name: 'slug' },
+      
+     collections:{
+       "form-submissions":{
+        isGlobal: false,
+        useTenantAccess: true,
+       }
+     },
+    }),
   ],
 })

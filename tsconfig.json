@@ -37,7 +37,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-  ],
+, "src/app/(payload)/api/forms/[id]/route.js"  ],
   "exclude": [
     "node_modules"
   ]
