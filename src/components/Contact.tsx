@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
-const API_BASE = process.env.REACT_APP_API_BASE || 'http://localhost:3000'
+
 const FORM_ID = 'contact-us'
 
 export default function ContactForm() {
@@ -13,7 +13,7 @@ export default function ContactForm() {
   useEffect(() => {
     // Fetch form metadata
     axios
-      .get(`${API_BASE}/api/forms/${FORM_ID}`)
+      .get(`/api/forms/${FORM_ID}`)
       .then((res) => setFormMeta(res.data))
       .catch((err) => console.error(err))
   }, [])
@@ -27,7 +27,7 @@ export default function ContactForm() {
     e.preventDefault()
     setStatus('Submitting...')
     try {
-      await axios.post(`${API_BASE}/api/forms/${FORM_ID}/submissions`, formData)
+      await axios.post(`/api/forms/${FORM_ID}/submissions`, formData)
       setStatus('Submitted successfully!')
       setFormData({ fullName: '', email: '', message: '' })
     } catch (error) {
