@@ -113,7 +113,7 @@ db: postgresAdapter({
 | ------- | ------------------------------- | ------------------------------------------------------------------- |
 | GET     | `/api/forms/${FORM_ID}`       | Fetch form schema (contact-us global)                               |
 | POST    | `/api/forms/${FORM_ID}/submissions` | Submit form data (body JSON includes `form: "contact-us"` + `data`) |
-
+| GET     | /admin                          |  go to admin page                                               |
 ---
 
 ## 🎯 Usage
