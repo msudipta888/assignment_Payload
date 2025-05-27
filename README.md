@@ -99,6 +99,7 @@ db: postgresAdapter({
 
    * Create one or more Tenants
    * Create your Admin user (assign a tenant)
+   * use a particular multitenant field to differentiate between 2 user so they can't access each other created form
 
 ---
 
